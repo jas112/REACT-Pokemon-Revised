@@ -1,9 +1,11 @@
+import PokemonApp from './components/pokemonApp/PokemonApp';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <h1>Pokemon Revised</h1>
+      <h1>Pokemon Revised Project</h1>
+      <PokemonApp />
     </div>
   );
 }
