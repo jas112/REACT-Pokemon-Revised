@@ -5,20 +5,37 @@ import PokemonDetails from '../pokemonDetails/PokemonDetails';
 
 function PokemonApp(props) {
 
+    const storedPokemonData = JSON.parse(window.localStorage.getItem('pokemonData'));
+    const storedPokemonDetails = JSON.parse(window.localStorage.getItem('pokemonDetails'));
+
     const [pokemonData, setPokemonData] = useState([]);
     const [currentPokemon, setCurrentPokemon] = useState(0);
     const [currentPokemonDetails, setCurrentPokemonDetails] = useState(pokemonData[0]);
 
     useEffect(() => {
         async function fetchPokemonData(){
-            try {
-                const response1 = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=300&offset=0`);
-                setPokemonData(response1.data.results);
-                const response2 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${0 + 1}`);
-                setCurrentPokemonDetails(response2.data);
-            } catch (err) {
-                console.log(err);
+            if(!storedPokemonData){
+                console.log(`storedPokemonData not found....`);
+                try {
+                    const response1 = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=300&offset=0`);
+                    setPokemonData(response1.data.results);
+                    window.localStorage.setItem('pokemonData', JSON.stringify(response1.data.results))
+                    const response2 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${0 + 1}`);
+                    setCurrentPokemonDetails(response2.data);
+                    window.localStorage.setItem('pokemonDetails', JSON.stringify(response2.data));
+                } catch (err) {
+                    console.log(err);
+                }
+            }else{
+                console.log(`storedPokemonData found....`);
+                setPokemonData(storedPokemonData);
+                let initialPokemonDetailsURL = storedPokemonData[0].url;
+                console.log(initialPokemonDetailsURL);
+                const responseInitDetails = await axios.get(`https://pokeapi.co/api/v2/pokemon/${0 + 1}`);
+                setCurrentPokemonDetails(responseInitDetails.data);
+                window.localStorage.setItem('pokemonDetails', JSON.stringify(responseInitDetails.data));
             }
+
         };
         fetchPokemonData();
     },[]);
