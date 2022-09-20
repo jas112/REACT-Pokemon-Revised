@@ -1,11 +1,23 @@
 import PokemonApp from './components/pokemonApp/PokemonApp';
-// import './App.css';
+import Box from '@mui/material/Box';
+import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <h1>Pokemon Revised Project</h1>
-      <PokemonApp />
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          '& > :not(style)': {
+            m: 1,
+            padding: 5,
+            margin: '0 auto',
+          },
+        }}
+      >
+        <PokemonApp style={{margin: '0 auto'}}/>
+      </Box>
     </div>
   );
 }

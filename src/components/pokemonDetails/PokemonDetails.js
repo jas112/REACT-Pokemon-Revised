@@ -3,22 +3,21 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 function PokemonDetails(props) {
-    const {pokemonIdx, pokemon} = props;
+    const {pokemon} = props;
 
     let imageURL = pokemon.sprites.other['official-artwork'].front_default;
 
   return (
 
-    <Card elevation={3} sx={{ maxWidth: 345 }}>
+    <Card elevation={3} sx={{ minWidth: 345, height: '100%'  }}>
         <CardMedia
         component="img"
         height="320"
         image={imageURL}
-        alt="green iguana"
+        alt="pokemon image"
         />
         <CardContent>
             <Typography gutterBottom variant="h5" component="div">

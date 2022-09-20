@@ -10,10 +10,12 @@ import Select from '@mui/material/Select';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+
 
 const bull = (
     <Box
@@ -30,7 +32,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
     height: 480,
     lineHeight: '60px',
-  }));
+}));
 
 function PokemonApp(props) {
 
@@ -43,7 +45,7 @@ function PokemonApp(props) {
 
     useEffect(() => {
         async function fetchPokemonData(){
-            if(!storedPokemonData){
+            if(!storedPokemonData && !storedPokemonDetails){
                 console.log(`storedPokemonData not found....`);
                 try {
                     const response1 = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=300&offset=0`);
@@ -97,43 +99,65 @@ function PokemonApp(props) {
         {/* <select value={currentPokemon} onChange={handleChangeEvent}>
             {pokemon}
         </select> */}
-        <Card elevation={3} sx={{ minWidth: 275, maxWidth: 345, height: 468.33 }}>
-            <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Welcome to this little Pokedex!!!
-                </Typography>
-                <Typography variant="h5" component="div">
-                    Po{bull}Ke{bull}Mon
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    a syllabic abbreviation
-                </Typography>
-                <Typography variant="body2">
-                     of the Japanese brand Pocket Monsters.
-                    <br />
-                    {/* {'"a benevolent smile"'} */}
-                </Typography>
-                <Box sx={{ minWidth: 120 }}>
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Pokemon</InputLabel>
-                        <Select
-                            labelId="pokemonSelect"
-                            id="pokemon-select"
-                            value={currentPokemon}
-                            label="Pokemon"
-                            onChange={handleChangeEvent}
-                        >
-                            {pokemon}
-                        </Select>
-                    </FormControl>
+        <Grid container spacing={2}>
+            <Grid item xs={6}>
+
+                <Box
+                sx={{
+                p: 2,
+                bgcolor: 'background.default',
+                display: 'grid',
+                gridTemplateColumns: { md: '1fr 1fr' },
+                gap: 2,
+                }}
+                >
+        
+                <Item key={uuidV4()} elevation={5}>
+                    <Card elevation={3} sx={{ minWidth: 345, maxWidth: 345, height: '100%' }}>
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                Welcome to this little Pokedex!!!
+                            </Typography>
+                            <Typography variant="h5" component="div">
+                                Po{bull}Ke{bull}Mon
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                a syllabic abbreviation
+                            </Typography>
+                            <Typography variant="body2">
+                                of the Japanese brand Pocket Monsters.
+                                <br />
+                                {/* {'"a benevolent smile"'} */}
+                            </Typography>
+                            <Box sx={{ minWidth: 120, paddingTop: 30 }}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Pokemon</InputLabel>
+                                    <Select
+                                        labelId="pokemonSelect"
+                                        id="pokemon-select"
+                                        value={currentPokemon}
+                                        label="Pokemon"
+                                        onChange={handleChangeEvent}
+                                    >
+                                        {pokemon}
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                        </CardContent>
+                        <CardActions>
+                            {/* <Button size="small">Learn More</Button> */}
+                        </CardActions>
+                    </Card>
+                </Item>
+
+                <Item key={uuidV4()} elevation={5}>
+                    {currentPokemonDetails ? <PokemonDetails pokemonIdx={currentPokemon} pokemon={currentPokemonDetails} /> : null}
+                </Item>
+        
                 </Box>
-            </CardContent>
-            <CardActions>
-                <Button size="small">Learn More</Button>
-            </CardActions>
-        </Card>
-    
-        {currentPokemonDetails ? <PokemonDetails pokemonIdx={currentPokemon} pokemon={currentPokemonDetails} /> : null}
+
+            </Grid>
+        </Grid>
     </div>
   )
 }
