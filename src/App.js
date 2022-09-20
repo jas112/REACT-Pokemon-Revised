@@ -1,5 +1,5 @@
 import PokemonApp from './components/pokemonApp/PokemonApp';
-import './App.css';
+// import './App.css';
 
 function App() {
   return (

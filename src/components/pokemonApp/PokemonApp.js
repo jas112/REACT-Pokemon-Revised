@@ -2,6 +2,35 @@ import React, {useState, useEffect} from 'react';
 import {v4 as uuidV4} from 'uuid';
 import axios from 'axios';
 import PokemonDetails from '../pokemonDetails/PokemonDetails';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+
+const bull = (
+    <Box
+        component="span"
+        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+    >
+        •
+    </Box>
+);
+
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    height: 480,
+    lineHeight: '60px',
+  }));
 
 function PokemonApp(props) {
 
@@ -58,15 +87,52 @@ function PokemonApp(props) {
     }
 
     let pokemon = pokemonData.map((pokemon, idx) => (
-        <option key={uuidV4()} value={idx}>{pokemon.name}</option>
+        // <option key={uuidV4()} value={idx}>{pokemon.name}</option>
+        <MenuItem key={uuidV4()} value={idx}>{pokemon.name}</MenuItem>
     ));
 
   return (
     <div>
         <h1>Welcome to PokemonApp!!!</h1>
-        <select value={currentPokemon} onChange={handleChangeEvent}>
+        {/* <select value={currentPokemon} onChange={handleChangeEvent}>
             {pokemon}
-        </select>
+        </select> */}
+        <Card elevation={3} sx={{ minWidth: 275, maxWidth: 345, height: 468.33 }}>
+            <CardContent>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    Welcome to this little Pokedex!!!
+                </Typography>
+                <Typography variant="h5" component="div">
+                    Po{bull}Ke{bull}Mon
+                </Typography>
+                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    a syllabic abbreviation
+                </Typography>
+                <Typography variant="body2">
+                     of the Japanese brand Pocket Monsters.
+                    <br />
+                    {/* {'"a benevolent smile"'} */}
+                </Typography>
+                <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Pokemon</InputLabel>
+                        <Select
+                            labelId="pokemonSelect"
+                            id="pokemon-select"
+                            value={currentPokemon}
+                            label="Pokemon"
+                            onChange={handleChangeEvent}
+                        >
+                            {pokemon}
+                        </Select>
+                    </FormControl>
+                </Box>
+            </CardContent>
+            <CardActions>
+                <Button size="small">Learn More</Button>
+            </CardActions>
+        </Card>
+    
         {currentPokemonDetails ? <PokemonDetails pokemonIdx={currentPokemon} pokemon={currentPokemonDetails} /> : null}
     </div>
   )
