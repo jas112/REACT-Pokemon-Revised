@@ -3,16 +3,24 @@ import axios from 'axios';
 import useLocalStorageState from './useLocalStorageState';
 
 
-function usePokemonState(initialPokemon) {
+function usePokemonState(initialPokemonData, initialCurrentPokemonIdx, initialCurrentPokemonDetails) {
 
-    const [pokemon, setPokemonData] = useLocalStorageState('pokemonData', initialPokemon);
+    const [pokemonData, setPokemonData] = useLocalStorageState('pokemonData', initialPokemonData);
+    const [currentPokemonIdx, setCurrentPokemonIdx] = useLocalStorageState('currentPokemonIdx', initialCurrentPokemonIdx);
+    const [currentPokemonDetails, setCurrentPokemonDetails] = useLocalStorageState('currentPokemonDetails', initialCurrentPokemonDetails);
 
     return {
         pokemon,
-        getPokemon: async () => {
-            const response1 = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=300&offset=0`);
-            setPokemonData(response1.data.results);
-            return response1.data.results;
+        getPokemonData: async () => {
+            const pokemonDataResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=300&offset=0`);
+            setPokemonData(pokemonDataResponse.data.results);
+            window.localStorage.setItem('pokemonData', JSON.stringify(responseInitDetails.data));
+            return pokemonDataResponse.data.results;
+        },
+        getSpecificPokemon: async (idx) => {
+            const specificPokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${idx + 1}`);
+            setCurrentPokemonDetails(specificPokemonResponse.data);
+            window.localStorage.setItem('currentPokemonDetails', JSON.stringify(responseInitDetails.data));
         }
     };
 
