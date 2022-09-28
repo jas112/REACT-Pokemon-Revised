@@ -20,7 +20,7 @@ function usePokemonState(initialPokemonData, initialCurrentPokemonIdx, initialCu
         getSpecificPokemon: async (idx) => {
             const specificPokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${idx + 1}`);
             setCurrentPokemonDetails(specificPokemonResponse.data);
-            window.localStorage.setItem('currentPokemonDetails', JSON.stringify(responseInitDetails.data));
+            window.localStorage.setItem('currentPokemonDetails', JSON.stringify(specificPokemonResponse.data));
         }
     };
 

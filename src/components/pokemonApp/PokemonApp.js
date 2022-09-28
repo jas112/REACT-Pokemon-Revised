@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import usePokemonState from '../../hooks/usePokemonState';
 
 
 const bull = (
@@ -38,6 +39,8 @@ function PokemonApp(props) {
 
     const storedPokemonData = JSON.parse(window.localStorage.getItem('pokemonData'));
     const storedPokemonDetails = JSON.parse(window.localStorage.getItem('pokemonDetails'));
+
+    const initialPokemonData = JSON.parse(window.localStorage.getItem('pokemonData'));
 
     const [pokemonData, setPokemonData] = useState([]);
     const [currentPokemon, setCurrentPokemon] = useState(0);
