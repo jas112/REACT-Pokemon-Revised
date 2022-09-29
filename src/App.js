@@ -1,4 +1,5 @@
 import PokemonApp from './components/pokemonApp/PokemonApp';
+import PokemonAppClass from './components/pokemonAppClass/PokemonAppClass';
 import Box from '@mui/material/Box';
 import './App.css';
 
@@ -16,7 +17,8 @@ function App() {
           },
         }}
       >
-        <PokemonApp style={{margin: '0 auto'}}/>
+        {/* <PokemonApp style={{margin: '0 auto'}}/> */}
+        <PokemonAppClass />
       </Box>
     </div>
   );

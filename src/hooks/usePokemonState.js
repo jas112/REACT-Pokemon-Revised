@@ -10,11 +10,11 @@ function usePokemonState(initialPokemonData, initialCurrentPokemonIdx, initialCu
     const [currentPokemonDetails, setCurrentPokemonDetails] = useLocalStorageState('currentPokemonDetails', initialCurrentPokemonDetails);
 
     return {
-        pokemon,
+        pokemonData,
         getPokemonData: async () => {
             const pokemonDataResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=300&offset=0`);
             setPokemonData(pokemonDataResponse.data.results);
-            window.localStorage.setItem('pokemonData', JSON.stringify(responseInitDetails.data));
+            window.localStorage.setItem('pokemonData', JSON.stringify(pokemonDataResponse.data));
             return pokemonDataResponse.data.results;
         },
         getSpecificPokemon: async (idx) => {
